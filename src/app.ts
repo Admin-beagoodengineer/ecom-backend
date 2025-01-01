@@ -104,7 +104,7 @@ const fetchOrderStatusForUser = async () => {
         const orderStatusInfo4 = await getOrCreateOrderStatus(tempId4);
 
         const finalValue = orderStatusInfo1.orderStatus && orderStatusInfo2.orderStatus && orderStatusInfo3.orderStatus && orderStatusInfo4.orderStatus;
-        console.log("Initial Value: ", finalValue);
+        // console.log("Initial Value: ", finalValue);
         
         globalOrderStatus = finalValue;
     } catch (error) {
@@ -115,11 +115,11 @@ const fetchOrderStatusForUser = async () => {
 
 io.on("connection", (socket) => {
     fetchOrderStatusForUser();
-    console.log("New client connected");
+    // console.log("New client connected");
 
     // Send the current order status to the newly connected client
     socket.emit("orderStatusUpdate", globalOrderStatus);
-    console.log('ORDER STATUS: ', globalOrderStatus);
+    // console.log('ORDER STATUS: ', globalOrderStatus);
 
     // Listen for admin updates to order status
     socket.on("updateOrderStatus", (newStatus) => {
@@ -130,10 +130,10 @@ io.on("connection", (socket) => {
     });
 
     socket.on("disconnect", () => {
-        console.log("Client disconnected");
+        // console.log("Client disconnected");
     });
 });
 
 server.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+    // console.log(`Server is running on http://localhost:${port}`);
 });
